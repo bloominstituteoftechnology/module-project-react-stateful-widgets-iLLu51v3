@@ -14,13 +14,6 @@ A naive developer might say 3 different slices:
 But a single slice of state is all that's needed here: the count!
 The other things can simply be _derived_ from the count itself.
 
-STEP 0:
-  Start by studying the component below, and importing the state hook.
-
-STEP 1:
-  Using the state hook, create a 'count', 'setCount' pair.
-  The 'count' state should be initialized to the number zero.
-
 STEP 2:
   The 'style' object has the 'color' property hard-coded to "royalblue".
   What the value of 'color' should be instead is a ternary expression that goes like this:
@@ -46,31 +39,39 @@ STEP 6:
 */
 
 import React from 'react'; /* STEP 0 */
+import { useState } from 'react';
 
 export default function Counter() {
   /* STEP 1 */
+  const [ count, setCount ] = useState(0)
 
+  
   const increment = () => {
     /* STEP 4 */
+    setCount(count + 1)
   };
   const decrement = () => {
     /* STEP 5 */
+    setCount(count - 1)
   };
   const reset = () => {
     /* STEP 6 */
+    setCount(0)
   };
 
+  const isEven = count % 2 === 0
+ 
   const style = {
     fontSize: '1.5em',
     marginBottom: '0.3em',
-    color: 'royalblue', /* STEP 2 */
+    color: isEven ? 'royalblue' : 'crimson', /* STEP 2 */
   };
 
   return (
     <div className='widget-counter container'>
       <h2>Counter</h2>
       <div id='count' style={style}>
-        Number 0 is even {/* STEP 3 */}
+        Number {count} {isEven ? 'is even' : 'is odd' } {/* STEP 3 */}
       </div>
       <div>
         <button id='increment' onClick={increment}>Increment</button>
